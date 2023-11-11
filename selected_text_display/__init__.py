@@ -17,8 +17,6 @@ from pywsd import disambiguate
 from pywsd import lesk
 import re
 
-
-
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
 _selected_text_display = components.declare_component("selected_text_display",
@@ -73,7 +71,7 @@ def main():
                     st.session_state.txt = display_text(detected_text)
                     st.session_state.img = True
     with col2:
-        st.image('../video-recording_V1.gif')
+        st.image('./video-recording_V1.gif')
     with col1:
         st.divider()
         st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
