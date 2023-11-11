@@ -1,0 +1,11 @@
+beautifulsoup4
+easyocr
+nltk
+numpy
+Pillow
+pywsd
+Requests
+setuptools
+streamlit
+streamlit_js_eval
+wordfreq
