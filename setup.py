@@ -3,10 +3,10 @@ import setuptools
 setuptools.setup(
     name="streamlit-streamlit-selected-text-display",
     version="0.0.1",
-    author="John Smith",
-    author_email="john@example.com",
-    description="Streamlit component that allows you to do X",
-    long_description=""
+    author="Celena Ponce",
+    author_email="celena.a.ponce@gmail.com",
+    description="Streamlit component that allows you to translate English to ASL",
+    long_description="",
     long_description_content_type="text/markdown",
     url="",
     packages=setuptools.find_packages(),

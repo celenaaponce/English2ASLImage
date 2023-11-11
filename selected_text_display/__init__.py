@@ -16,13 +16,17 @@ import easyocr
 from pywsd import disambiguate
 from pywsd import lesk
 import re
+import os
+
+_RELEASE = True
 
 
+parent_dir = os.path.dirname(os.path.abspath(__file__))
+build_dir = os.path.join(parent_dir, "frontend/build")
+_selected_text_display = components.declare_component("selected_text_display", path=build_dir)
 
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
-_selected_text_display = components.declare_component("selected_text_display",
-                                                          url="http://localhost:3001",)
 
 def selected_text_display(txt, key=None):
     return _selected_text_display(txt=txt, key=key)
