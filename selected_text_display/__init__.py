@@ -160,39 +160,39 @@ def on_phone():
           
           if selected_text not in st.session_state.words and selected_text not in [None, '', ' ']:
               st.session_state.words.append(selected_text)
-        container_dict = {}
+          container_dict = {}
   
-        if st.button("Translate to ASL"):
-            syns = disambiguate(st.session_state.txt)
-            result_dict = dict(syns)
-    
-            for word in st.session_state.words:
-                container_dict[word] = st.container()
-
-            for word in st.session_state.words:
-                video_links = find_words_asl(word)
-                if video_links != []:
-                    with container_dict[word]:
-                            st.subheader(word)
-                            for video in video_links:
-                                st.video(video)
-                else:
-                    lstsyn = find_synonyms(word, syns)
-                    for syn in lstsyn:
-                        video_links = find_words_asl(syn)
-                        if video_links != []:
-                            st.write(syn)
-                            break
-                    for video in video_links:
-                        st.video(video)
-    
-    
-        if st.button("Restart"):
-            st.session_state.words = []
-            st.session_state.img = False
-            st.session_state.txt = ""
-            streamlit_js_eval(js_expressions="parent.window.location.reload()")
-        
+          if st.button("Translate to ASL"):
+              syns = disambiguate(st.session_state.txt)
+              result_dict = dict(syns)
+      
+              for word in st.session_state.words:
+                  container_dict[word] = st.container()
+  
+              for word in st.session_state.words:
+                  video_links = find_words_asl(word)
+                  if video_links != []:
+                      with container_dict[word]:
+                              st.subheader(word)
+                              for video in video_links:
+                                  st.video(video)
+                  else:
+                      lstsyn = find_synonyms(word, syns)
+                      for syn in lstsyn:
+                          video_links = find_words_asl(syn)
+                          if video_links != []:
+                              st.write(syn)
+                              break
+                      for video in video_links:
+                          st.video(video)
+      
+      
+          if st.button("Restart"):
+              st.session_state.words = []
+              st.session_state.img = False
+              st.session_state.txt = ""
+              streamlit_js_eval(js_expressions="parent.window.location.reload()")
+          
 def find_words_asl(word):
     word = word.lower()
     found_ss, video_urls = find_word(f"https://www.signingsavvy.com/search/{word}", word)
