@@ -37,7 +37,7 @@ if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
   st.write(f"Screen width is {streamlit_js_eval(js_expressions='screen.width', key = 'SCR')}")
-    m = st.markdown("""<style> div.stButton > button:first-child {
+  m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
   color: #ffffff; /* Text color */
   padding: 10px 20px; /* Padding */
