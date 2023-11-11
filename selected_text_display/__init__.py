@@ -1,3 +1,6 @@
+import nltk
+nltk.data.path.append('nltk_data')
+
 import streamlit as st
 import streamlit.components.v1 as components
 import requests
@@ -13,9 +16,7 @@ from pywsd import disambiguate
 from pywsd import lesk
 import re
 
-import nltk
-nltk.data.path.append('nltk_data')
-nltk.data.load('nltk_data/taggers/averaged_perceptron_tagger/averaged_perceptron_tagger.pickle')
+
 
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
