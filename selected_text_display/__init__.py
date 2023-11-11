@@ -13,7 +13,8 @@ import easyocr
 from pywsd import disambiguate
 from pywsd import lesk
 import re
-@st.cache_data:
+
+@st.cache_data
 def nltk_download():
   nltk.download('averaged_perceptron_tagger')
 nltk_download()
