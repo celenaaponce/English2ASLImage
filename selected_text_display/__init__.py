@@ -14,10 +14,9 @@ from pywsd import disambiguate
 from pywsd import lesk
 import re
 
-@st.cache_data
-def nltk_download():
-  nltk.download('averaged_perceptron_tagger')
-nltk_download()
+
+nltk.download('averaged_perceptron_tagger')
+
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
 _selected_text_display = components.declare_component("selected_text_display",
