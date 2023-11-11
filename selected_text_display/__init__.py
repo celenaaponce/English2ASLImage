@@ -73,7 +73,7 @@ def main():
                     st.session_state.txt = display_text(detected_text)
                     st.session_state.img = True
     with col2:
-        st.image('/Users/celenap/selected_text_display/video-recording_V1.gif')
+        st.image('../video-recording_V1.gif')
     with col1:
         st.divider()
         st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
