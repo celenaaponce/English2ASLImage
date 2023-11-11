@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
-import nltk
 from wordfreq import word_frequency
 from streamlit_js_eval import streamlit_js_eval
 from PIL import Image
@@ -14,7 +13,7 @@ from pywsd import disambiguate
 from pywsd import lesk
 import re
 
-
+import nltk
 nltk.download('averaged_perceptron_tagger')
 
 wnl = WordNetLemmatizer()
