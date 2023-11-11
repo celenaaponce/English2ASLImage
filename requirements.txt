@@ -7,6 +7,5 @@ pywsd==1.2.5
 Requests==2.31.0
 setuptools==58.0.4
 streamlit==1.23.1
-streamlit_custom_component.egg==info
 streamlit_js_eval==0.1.5
 wordfreq==3.0.3
