@@ -14,7 +14,7 @@ from pywsd import lesk
 import re
 
 import nltk
-nltk.download('averaged_perceptron_tagger')
+nltk.load('/nltk_data/taggers/averaged_perceptron_tagger/averaged_perceptron_tagger.pickle')
 
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
