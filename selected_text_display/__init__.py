@@ -14,7 +14,7 @@ from pywsd import lesk
 import re
 
 import nltk
-export NLTK_DATA="nltk_data"
+nltk.data.path.append('nltk_data')
 nltk.data.load('nltk_data/taggers/averaged_perceptron_tagger/averaged_perceptron_tagger.pickle')
 
 wnl = WordNetLemmatizer()
