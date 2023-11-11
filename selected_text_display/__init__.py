@@ -4,8 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
-# from nltk.tokenize import word_tokenize, sent_tokenize
-# from nltk.tag import pos_tag
+import nltk
 from wordfreq import word_frequency
 from streamlit_js_eval import streamlit_js_eval
 from PIL import Image
@@ -14,7 +13,10 @@ import easyocr
 from pywsd import disambiguate
 from pywsd import lesk
 import re
-
+@st.cache_data:
+def nltk_download():
+  nltk.download('averaged_perceptron_tagger')
+nltk_download()
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
 _selected_text_display = components.declare_component("selected_text_display",
