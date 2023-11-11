@@ -36,7 +36,7 @@ if 'words' not in st.session_state:
 if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
-    screen_width = {streamlit_js_eval(js_expressions='screen.width', key = 'SCR')}
+    screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
     # st.write(f"Screen width is {streamlit_js_eval(js_expressions='screen.width', key = 'SCR')}")
     m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
