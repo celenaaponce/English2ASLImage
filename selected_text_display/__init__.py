@@ -1,6 +1,7 @@
 import nltk
-nltk.data.path.append('nltk_data')
-nltk.download('wordnet')
+if 'nltk_data' not in nltk.data.path:
+  nltk.data.path.append('nltk_data')
+
 import streamlit as st
 import streamlit.components.v1 as components
 import requests
