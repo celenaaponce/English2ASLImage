@@ -109,8 +109,8 @@ def main():
                           for video in video_links:
                               st.video(video)
                       with right_column_dict[word]:
-                          st.subheader("Root: ")
                           try:
+                            st.subheader("Root: ")
                             _, pos, _ = result_dict[word].name().split('.')
                             st.write(wnl.lemmatize(word, pos=pos))
                             st.subheader("This English word can also mean: ")
