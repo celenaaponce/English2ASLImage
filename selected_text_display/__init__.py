@@ -110,12 +110,15 @@ def main():
                               st.video(video)
                       with right_column_dict[word]:
                           st.subheader("Root: ")
-                          _, pos, _ = result_dict[word].name().split('.')
-                          st.write(wnl.lemmatize(word, pos=pos))
-                          st.subheader("This English word can also mean: ")
-                          lstsyn = find_synonyms(word, syns)
-                          for syn in lstsyn:
-                              st.write(syn)
+                          try:
+                            _, pos, _ = result_dict[word].name().split('.')
+                            st.write(wnl.lemmatize(word, pos=pos))
+                            st.subheader("This English word can also mean: ")
+                            lstsyn = find_synonyms(word, syns)
+                            for syn in lstsyn:
+                                st.write(syn)
+                          except:
+                            st.write("")
               else:
                   lstsyn = find_synonyms(word, syns)
                   for syn in lstsyn:
