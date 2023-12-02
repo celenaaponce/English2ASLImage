@@ -132,6 +132,7 @@ def main():
                           except:
                             st.write("")
               else:
+                  st.write(word)
                   lstsyn = find_synonyms(word, syns)
                   for syn in lstsyn:
                       video_links = find_words_asl(syn)
