@@ -93,10 +93,16 @@ def main():
       container_dict = {}
       left_column_dict = {}
       right_column_dict = {}
-  
+      synsets = {}
       if st.button("Translate to ASL"):
-          syns = disambiguate(st.session_state.txt)
-          result_dict = dict(syns)
+        for word in st.session_state_words:
+          word = word.lower()
+          if word not in synsets.keys():
+              synsets[word] = lesk.simple_lesk(sentence, word)
+          else:
+              test_word = lesk.simple_lesk(sentence, word)
+              if test_word != synsets[word]:
+                  print('duplicate word diff meaning')
   
           for word in st.session_state.words:
               container_dict[word] = st.container()
@@ -169,12 +175,8 @@ def on_phone():
           if selected_text not in st.session_state.words and selected_text not in [None, '', ' ']:
               st.session_state.words.append(selected_text)
           container_dict = {}
-          synsets = {}
+
           if st.button("Translate to ASL"):
-              for word in st.session_state.words:
-                  word = word.lower()
-                  if word not in synsets.keys():
-                      synsets[word] = lesk.simple_lesk(sentence, word)
       
               for word in st.session_state.words:
                   container_dict[word] = st.container()
