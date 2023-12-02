@@ -119,6 +119,7 @@ def main():
                               st.video(video)
                       with right_column_dict[word]:
                           try:
+                            st.write(result_dict[word])
                             _, pos, _ = result_dict[word].name().split('.')
                             root = wnl.lemmatize(word, pos=pos)
                             if root != '':
