@@ -10,7 +10,7 @@ from PIL import Image
 import numpy as np
 import easyocr
 import os
-from selected_text_display import backend
+from ./selected_text_display import backend
 
 st.set_page_config(layout="wide")
 parent_dir = os.path.dirname(os.path.abspath(__file__))
