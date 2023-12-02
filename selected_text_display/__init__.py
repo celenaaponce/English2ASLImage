@@ -303,6 +303,7 @@ def match_synonyms(asl, english):
             website = prefix + asl_translation
             asl_translation = get_single_video(website)
     return asl_translation  
+  
 def get_single_video(website):
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -332,9 +333,10 @@ def find_word(website, word):
     for tag in video_tags:
         video_url = tag.find("source")['src']
         possible_urls.append(video_url)
+    if possible_urls == []:
         return True, possible_urls
-
-    return False, ""
+    else:
+        return False, ""
     
 def duplicate_words(a_tags):
     possible_urls= []
