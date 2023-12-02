@@ -125,7 +125,7 @@ def main():
                             if root != '':
                               st.subheader("Root: ")
                               st.write(root)
-                            lstsyn = find_synonyms(word, syns)
+                            lstsyn = find_synonyms(word, synsets)
                             st.write(syns)
                             if lstsyn != []:
                               st.subheader("This English word can also mean: ")
