@@ -25,10 +25,13 @@ def get_asl(word, synsets):
   return video_links
 
 def english_root_and_synonyms(synsets, word):
+      url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/signing_savvy_words.csv'
+      result = pd.read_csv(url, index_col=0)
       _, pos, _ = synsets[word].name().split('.')
       root = wnl.lemmatize(word, pos=pos)
       lstsyn = find_synonyms(word, synsets)
-      return root, lstsyn
+      asl_synonyms = result.loc[result['word'] == word]['synonyms']
+      return root, lstsyn, asl_synonyms
 
 def find_words_asl(word, synsets):
     word = word.lower()
