@@ -101,7 +101,7 @@ def main():
                               st.video(video)
                       with right_column_dict[word]:
                           try:
-                            root, lstsyn = backend.english_root_and_synonyms(synsets, word)
+                            root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
                             if root != '':
                               st.divider()
                               st.subheader("Root: ")
@@ -109,6 +109,10 @@ def main():
                             if lstsyn != []:
                               st.subheader("This English word can also mean: ")
                               for syn in lstsyn:
+                                  st.write(syn)
+                            if asl_synonyms != []:
+                              st.subheader("This ASL sign can also mean: ")
+                              for syn in asl_synonyms:
                                   st.write(syn)
                           except:
                             st.write("")
