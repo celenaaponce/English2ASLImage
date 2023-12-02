@@ -17,6 +17,7 @@ from pywsd import disambiguate
 from pywsd import lesk
 import re
 import os
+import pandas as pd
 
 wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
