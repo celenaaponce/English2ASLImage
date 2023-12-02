@@ -222,7 +222,8 @@ def find_synonyms(word, syn):
     return synonyms
 
 def find_word_ss(website, word, synsets):
-    result = pd.read_csv('signing_savvy_words.csv')
+    url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/signing_savvy_words.csv'
+    result = pd.read_csv(url, index_col=0)
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
     header_tag = soup.find('div', class_ = 'signing_header')
