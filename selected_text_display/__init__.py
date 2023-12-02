@@ -121,6 +121,7 @@ def main():
                             _, pos, _ = synsets[word].name().split('.')
                             root = wnl.lemmatize(word, pos=pos)
                             if root != '':
+                              st.divider()
                               st.subheader("Root: ")
                               st.write(root)
                             lstsyn = find_synonyms(word, synsets)
