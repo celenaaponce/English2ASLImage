@@ -98,7 +98,6 @@ def main():
         sentence = st.session_state.txt
         for word in st.session_state.words:
           word = word.lower()
-          st.write(word, sentence)
           if word not in synsets.keys():
               synsets[word] = lesk.simple_lesk(sentence, word)
           else:
@@ -126,7 +125,6 @@ def main():
                               st.subheader("Root: ")
                               st.write(root)
                             lstsyn = find_synonyms(word, synsets)
-                            st.write(lstsyn)
                             if lstsyn != []:
                               st.subheader("This English word can also mean: ")
                               for syn in lstsyn:
