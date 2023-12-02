@@ -1,4 +1,12 @@
-def get_lesk(st.session_state.txt, st.session_state.words):
+import requests
+from pywsd import lesk 
+from nltk.corpus import wordnet
+import pandas as pd
+from wordfreq import word_frequency
+from bs4 import BeautifulSoup
+import string
+
+def get_lesk(st.session_state.txt, st.session_state.words, synsets):
     sentence = st.session_state.txt
     for word in st.session_state.words:
       word = word.lower()
@@ -16,7 +24,7 @@ def get_asl(word, synsets):
 
 def english_root_and_synonyms(synsets, word):
       _, pos, _ = synsets[word].name().split('.')
-      root = wnl.lemmatize(word, pos=pos)
+      root = wordnet.lemmatize(word, pos=pos)
       lstsyn = find_synonyms(word, synsets)
       return root, lstsyn
 
