@@ -334,7 +334,7 @@ def find_word(website, word):
     for tag in video_tags:
         video_url = tag.find("source")['src']
         possible_urls.append(video_url)
-    if possible_urls ! = []:
+    if possible_urls != []:
         return True, possible_urls
     else:
         return False, ""
