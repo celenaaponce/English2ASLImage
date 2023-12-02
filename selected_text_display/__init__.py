@@ -4,23 +4,14 @@ if 'nltk_data' not in nltk.data.path:
 
 import streamlit as st
 import streamlit.components.v1 as components
-import requests
-from bs4 import BeautifulSoup
-from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
-from wordfreq import word_frequency
 from streamlit_js_eval import streamlit_js_eval
 from PIL import Image
 import numpy as np
 import easyocr
-from pywsd import disambiguate
-from pywsd import lesk
-import re
 import os
-import pandas as pd
 from .backend import *
 
-wnl = WordNetLemmatizer()
 st.set_page_config(layout="wide")
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.path.join(parent_dir, "frontend/build")
