@@ -164,16 +164,18 @@ def on_phone():
           if selected_text not in st.session_state.words and selected_text not in [None, '', ' ']:
               st.session_state.words.append(selected_text)
           container_dict = {}
-  
+          synsets = {}
           if st.button("Translate to ASL"):
-              syns = disambiguate(st.session_state.txt)
-              result_dict = dict(syns)
+              for word in st.session_state.words:
+                  word = word.lower()
+                  if word not in synsets.keys():
+                      synsets[word] = lesk.simple_lesk(sentence, word)
       
               for word in st.session_state.words:
                   container_dict[word] = st.container()
   
               for word in st.session_state.words:
-                  video_links = find_words_asl(word)
+                  video_links = find_words_asl(word, synsets)
                   if video_links != []:
                       with container_dict[word]:
                               st.subheader(word)
@@ -196,9 +198,9 @@ def on_phone():
               st.session_state.txt = ""
               streamlit_js_eval(js_expressions="parent.window.location.reload()")
           
-def find_words_asl(word):
+def find_words_asl(word, synsets):
     word = word.lower()
-    found_ss, video_urls = find_word(f"https://www.signingsavvy.com/search/{word}", word)
+    found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word)
     if not found_ss:
         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{word}", word)
     if found_ss or found_sa:
@@ -208,17 +210,108 @@ def find_words_asl(word):
 
 def find_synonyms(word, syn):
     synonyms = []
-    for sent_word in syn:
-        if sent_word[0] == word and sent_word[1] is not None:
-            synset = sent_word[1]
-            name = synset.name()
-            for i in wordnet.synset(name).lemmas():
-                if word_frequency(i.name(), 'en') > .0000001 and i.name() != word:
-                    synonyms.append(i.name())
+    if syn[word]:
+        name = syn[word].name()
+        for i in wordnet.synset(name).lemmas():
+            lemma_name = i.name().replace('_', " ")
+            if word_frequency(lemma_name, 'en') > .0000001 and lemma_name != word:
+                synonyms.append(lemma_name)
     return synonyms
 
+def find_word_ss(website, word, synsets, result):
+    result = pd.read_csv('selected_text_display/signing_savvy_words.csv')
+    r = requests.get(website)
+    soup = BeautifulSoup(r.content, 'html.parser')
+    header_tag = soup.find('div', class_ = 'signing_header')
+    if header_tag == None:
+        video_urls = get_multiple_meanings(soup, synsets, result, word)
+        if video_urls == []:
+            found = False
+        else:
+            found = True
+        return found, video_urls
+    lists = header_tag.find_all('li')
+    if len(lists) == 2:
+        video_urls = get_single_video(website)
+    elif len(lists) > 2:
+        video_urls = get_multiple_videos(lists, website)
+    return True, video_urls
+  
+def get_multiple_meanings(soup, synsets, result, word):
+    video_urls = []
+    results = soup.find('div', class_ = 'search_results')
+    if results == None:
+        return []
+    meanings = results.find_all('li')
+    
+    asl_translation = None
+    if synsets[word]:
+        english = synsets[word]
+        
+        asl = result.loc[result['word'] == word]
+        asl_translation = match_synset(asl, english)
+        video_urls = asl_translation
+        
+        if asl_translation == None:
+            asl_translation = match_synonyms(asl, english)
+            video_urls = asl_translation
+            
+    if asl_translation == None:
+        video_urls = []
+        prefix = 'https://www.signingsavvy.com/'
+        for meaning in meanings:
+            suffix = meaning.find('a')['href']
+            website = prefix + suffix
+            if len(video_urls) < 2:
+                video_urls.append(get_single_video(website))
+    return video_urls
 
+def match_synset(asl, english):
+    asl_translation = None
+    prefix = 'https://www.signingsavvy.com/'
+    for index, row in asl.iterrows():
+        if type(row['synset']) != float:
+            if row['synset'] == str(english):
+                asl_translation = row['link'].to_list()
+                website = prefix + asl_translation
+                asl_translation = get_single_video(website)
+    return asl_translation
+  
+def match_synonyms(asl, english):
+    asl_translation = None
+    prefix = 'https://www.signingsavvy.com/'
+    synonyms = [x.name() for x in english.lemmas()]
+    for index, row in asl.iterrows():
+        asl_lst = row['synonyms'].strip('][').split(', ')
+        asl_syn_lst = []
+        for i in asl_lst:
+            splt = i.split('(')
+            asl_syn_lst.append(splt[0].lower().translate(str.maketrans('', '', string.punctuation)))
+        if any(x in synonyms for x in asl_syn_lst):
+            asl_translation = row['link']
+            website = prefix + asl_translation
+            asl_translation = get_single_video(website)
+    return asl_translation  
+def get_single_video(website):
+    r = requests.get(website)
+    soup = BeautifulSoup(r.content, 'html.parser')
+    video_tag = soup.find('video')
+    video_url = video_tag.find("source")['src']
+    return video_url
 
+def get_multiple_videos(lists, website):
+    video_urls = []
+    video_urls.append(get_single_video(website))
+    #first one accounted for above, last one is finger spelling
+    prefix = 'https://www.signingsavvy.com/'
+    for item in lists[1:-1]:
+        suffix = item.find('a')['href']
+        website = prefix + suffix
+        if len(video_urls) < 2:
+            video_urls.append(get_single_video(website))
+        else:
+            break
+    return video_urls
 def find_word(website, word):
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
