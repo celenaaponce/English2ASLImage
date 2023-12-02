@@ -323,6 +323,7 @@ def get_multiple_videos(lists, website):
         else:
             break
     return video_urls
+  
 def find_word(website, word):
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -332,14 +333,8 @@ def find_word(website, word):
         video_url = tag.find("source")['src']
         possible_urls.append(video_url)
         return True, possible_urls
-    else:
-        if 'signingsavvy' in website:
-            tag_starts_with = f'sign/{word}'
-            a_tags = soup.find_all('a', {'href': re.compile(f'^{re.escape(tag_starts_with)}')})
-            if len(a_tags) != 0:
-                found, possible_urls = duplicate_words(a_tags)
-                return found, possible_urls
-        return False, ""
+
+    return False, ""
     
 def duplicate_words(a_tags):
     possible_urls= []
