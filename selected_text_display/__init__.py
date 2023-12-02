@@ -104,7 +104,7 @@ def main():
               test_word = lesk.simple_lesk(sentence, word)
               if test_word != synsets[word]:
                   print('duplicate word diff meaning')
-  
+          st.write(synsets)
           for word in st.session_state.words:
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
