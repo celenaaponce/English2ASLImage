@@ -85,9 +85,8 @@ def main():
       container_dict = {}
       left_column_dict = {}
       right_column_dict = {}
-      synsets = {}
       if st.button("Translate to ASL"):
-          backend.get_lesk(st.session_state.txt, st.session_state.words)
+          synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
           for word in st.session_state.words:
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
