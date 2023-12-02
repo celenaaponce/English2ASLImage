@@ -91,7 +91,7 @@ def main():
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
           for word in st.session_state.words:
-              video_links = get_asl(word, synsets)
+              video_links = backend.get_asl(word, synsets)
               if video_links != []:
                   with container_dict[word]:
                       with left_column_dict[word]:
@@ -101,7 +101,7 @@ def main():
                               st.video(video)
                       with right_column_dict[word]:
                           try:
-                            root, lstsyn = english_root_and_synonyms(synsets, word)
+                            root, lstsyn = backend.english_root_and_synonyms(synsets, word)
                             if root != '':
                               st.divider()
                               st.subheader("Root: ")
@@ -114,9 +114,9 @@ def main():
                             st.write("")
               else:
                   st.write(word)
-                  lstsyn = find_synonyms(word, syns)
+                  lstsyn = backend.find_synonyms(word, syns)
                   for syn in lstsyn:
-                      video_links = find_words_asl(syn)
+                      video_links = backend.find_words_asl(syn)
                       if video_links != []:
                           st.write(syn)
                           break
@@ -165,16 +165,16 @@ def on_phone():
                   container_dict[word] = st.container()
   
               for word in st.session_state.words:
-                  video_links = find_words_asl(word, synsets)
+                  video_links = backend.find_words_asl(word, synsets)
                   if video_links != []:
                       with container_dict[word]:
                               st.subheader(word)
                               for video in video_links:
                                   st.video(video)
                   else:
-                      lstsyn = find_synonyms(word, syns)
+                      lstsyn = backend.find_synonyms(word, syns)
                       for syn in lstsyn:
-                          video_links = find_words_asl(syn)
+                          video_links = backend.find_words_asl(syn)
                           if video_links != []:
                               st.write(syn)
                               break
