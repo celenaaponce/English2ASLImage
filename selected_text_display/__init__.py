@@ -97,6 +97,7 @@ def main():
       if st.button("Translate to ASL"):
         for word in st.session_state.words:
           word = word.lower()
+          st.write(word, sentence)
           if word not in synsets.keys():
               synsets[word] = lesk.simple_lesk(sentence, word)
           else:
