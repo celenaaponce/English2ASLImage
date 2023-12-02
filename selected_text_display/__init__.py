@@ -98,7 +98,9 @@ def main():
         sentence = st.session_state.txt
         for word in st.session_state.words:
           word = word.lower()
+          st.write(word)
           if word not in synsets.keys():
+              st.write('here')
               synsets[word] = lesk.simple_lesk(sentence, word)
           else:
               test_word = lesk.simple_lesk(sentence, word)
