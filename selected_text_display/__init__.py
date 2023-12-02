@@ -95,6 +95,7 @@ def main():
       right_column_dict = {}
       synsets = {}
       if st.button("Translate to ASL"):
+        sentence = st.session_state.txt
         for word in st.session_state.words:
           word = word.lower()
           st.write(word, sentence)
