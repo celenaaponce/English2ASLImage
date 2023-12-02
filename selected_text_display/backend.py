@@ -30,7 +30,7 @@ def english_root_and_synonyms(synsets, word):
       _, pos, _ = synsets[word].name().split('.')
       root = wnl.lemmatize(word, pos=pos)
       lstsyn = find_synonyms(word, synsets)
-      asl_synonyms = result.loc[result['word'] == root]['synonyms']
+      asl_synonyms = result.loc[result['word'] == root]['synonyms'].to_list()
       return root, lstsyn, asl_synonyms
 
 def find_words_asl(word, synsets):
