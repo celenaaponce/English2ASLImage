@@ -8,7 +8,8 @@ import string
 from nltk.stem import WordNetLemmatizer
 wnl = WordNetLemmatizer()
 
-def get_lesk(sentence, words, synsets):
+def get_lesk(sentence, words):
+    synsets = {}
     for word in words:
       word = word.lower()
       if word not in synsets.keys():
