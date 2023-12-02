@@ -254,6 +254,7 @@ def get_multiple_meanings(soup, synsets, result, word):
     meanings = results.find_all('li')
     
     asl_translation = None
+    st.write(synsets)
     if synsets[word]:
         english = synsets[word]
         
