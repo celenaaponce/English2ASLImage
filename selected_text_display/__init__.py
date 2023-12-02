@@ -241,7 +241,7 @@ def find_word_ss(website, word, synsets):
         return found, video_urls
     lists = header_tag.find_all('li')
     if len(lists) == 2:
-        video_urls = get_single_video(website)
+        [video_urls] = get_single_video(website)
     elif len(lists) > 2:
         video_urls = get_multiple_videos(lists, website)
     return True, video_urls
