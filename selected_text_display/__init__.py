@@ -110,6 +110,7 @@ def main():
           for word in st.session_state.words:
               video_links = find_words_asl(word, synsets)
               if video_links != []:
+                  st.divider()
                   with container_dict[word]:
                       with left_column_dict[word]:
                           st.subheader(word)
