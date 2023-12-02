@@ -95,18 +95,19 @@ def main():
       right_column_dict = {}
       synsets = {}
       if st.button("Translate to ASL"):
-        sentence = st.session_state.txt
-        for word in st.session_state.words:
-          word = word.lower()
-          st.write(word)
-          if word not in synsets.keys():
-              st.write('here')
-              synsets[word] = lesk.simple_lesk(sentence, word)
-          else:
-              test_word = lesk.simple_lesk(sentence, word)
-              if test_word != synsets[word]:
-                  print('duplicate word diff meaning')
-          st.write(synsets)
+          sentence = st.session_state.txt
+          for word in st.session_state.words:
+            word = word.lower()
+            st.write(word)
+            if word not in synsets.keys():
+                st.write('inside loop')
+                synsets[word] = lesk.simple_lesk(sentence, word)
+            else:
+                st.write('other loop')
+                test_word = lesk.simple_lesk(sentence, word)
+                if test_word != synsets[word]:
+                    print('duplicate word diff meaning')
+            st.write(synsets)
           for word in st.session_state.words:
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
