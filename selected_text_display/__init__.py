@@ -113,12 +113,10 @@ def main():
                   with container_dict[word]:
                       with left_column_dict[word]:
                           st.subheader(word)
-                          st.write(video_links)
                           for video in video_links:
                               st.video(video)
                       with right_column_dict[word]:
                           try:
-                            st.write(synsets[word])
                             _, pos, _ = synsets[word].name().split('.')
                             root = wnl.lemmatize(word, pos=pos)
                             if root != '':
@@ -256,7 +254,6 @@ def get_multiple_meanings(soup, synsets, result, word):
     meanings = results.find_all('li')
     
     asl_translation = None
-    st.write(synsets)
     if synsets[word]:
         english = synsets[word]
         
