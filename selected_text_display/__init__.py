@@ -203,7 +203,7 @@ def on_phone():
           
 def find_words_asl(word, synsets):
     word = word.lower()
-    found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word)
+    found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
     if not found_ss:
         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{word}", word)
     if found_ss or found_sa:
@@ -221,7 +221,7 @@ def find_synonyms(word, syn):
                 synonyms.append(lemma_name)
     return synonyms
 
-def find_word_ss(website, word, synsets, result):
+def find_word_ss(website, word, synsets):
     result = pd.read_csv('selected_text_display/signing_savvy_words.csv')
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
