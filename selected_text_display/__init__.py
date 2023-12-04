@@ -118,7 +118,7 @@ def main():
                             st.write("")
               else:
                   st.write(word)
-                  lstsyn = backend.find_synonyms(word, syns)
+                  lstsyn = backend.find_synonyms(word, synsets)
                   for syn in lstsyn:
                       video_links = backend.find_words_asl(syn)
                       if video_links != []:
