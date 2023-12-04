@@ -6,6 +6,7 @@ from wordfreq import word_frequency
 from bs4 import BeautifulSoup
 import string
 from nltk.stem import WordNetLemmatizer
+import streamlit as st
 wnl = WordNetLemmatizer()
 
 def get_lesk(sentence, words):
