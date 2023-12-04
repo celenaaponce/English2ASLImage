@@ -117,7 +117,8 @@ def main():
                               st.subheader("This ASL sign can also mean: ")
                               for syn in asl_synonyms:
                                   st.write(syn)
-                          except:
+                          except, e:
+                            st.write('Failed to get info: '+ str(e))
                             st.write("nothing there")
               else:
                   st.write(word)
