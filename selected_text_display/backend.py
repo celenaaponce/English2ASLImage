@@ -29,6 +29,7 @@ def english_root_and_synonyms(synsets, word):
       result = pd.read_csv(url, index_col=0)
       _, pos, _ = synsets[word].name().split('.')
       root = wnl.lemmatize(word, pos=pos)
+      st.write(root)
       lstsyn = find_synonyms(word, synsets)
       st.write(result.loc[result['word']==root])
       asl_synonyms = result.loc[result['word'] == root]['synonyms'].to_list()
