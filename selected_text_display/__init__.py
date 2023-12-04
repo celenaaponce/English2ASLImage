@@ -115,7 +115,7 @@ def main():
                               for syn in asl_synonyms:
                                   st.write(syn)
                           except:
-                            st.write("")
+                            st.write("nothing there")
               else:
                   st.write(word)
                   lstsyn = backend.find_synonyms(word, synsets)
