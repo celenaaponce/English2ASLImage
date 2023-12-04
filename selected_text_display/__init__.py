@@ -102,6 +102,9 @@ def main():
                       with right_column_dict[word]:
                           try:
                             root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
+                            st.write('root', root)
+                            st.write('lstsyn', lstsyn)
+                            st.write('syn', asl_synonyms)
                             if root != '':
                               st.divider()
                               st.subheader("Root: ")
