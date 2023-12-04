@@ -112,11 +112,11 @@ def main():
                                   st.write(syn)
                             if asl_synonyms != []:
                               st.subheader("This ASL sign can also mean: ")
+                              asl_synonyms = asl_synonyms.split(',').strip('[]')
                               for syn in asl_synonyms:
                                   st.write(syn)
                           except Exception as e:
-                            st.write('Failed to get info: '+ str(e))
-                            st.write("nothing there")
+                            st.write("")
               else:
                   st.write(word)
                   lstsyn = backend.find_synonyms(word, synsets)
