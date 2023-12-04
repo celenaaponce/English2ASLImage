@@ -27,6 +27,7 @@ def get_asl(word, synsets):
 def english_root_and_synonyms(synsets, word):
       url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/signing_savvy_words.csv'
       result = pd.read_csv(url, index_col=0)
+      st.write(synsets[word])
       _, pos, _ = synsets[word].name().split('.')
       root = wnl.lemmatize(word, pos=pos)
       st.write(root)
