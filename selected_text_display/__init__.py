@@ -113,8 +113,9 @@ def main():
                             if asl_synonyms != []:
                               st.subheader("This ASL sign can also mean: ")
                               for syn in asl_synonyms:
-                                  syn = syn.split(',').strip('[]')
-                                  st.write(syn)
+                                syn = syn.split(',')
+                                for item in syn:
+                                    st.write(item.strip('[]'))
                           except Exception as e:
                             st.write("")
               else:
