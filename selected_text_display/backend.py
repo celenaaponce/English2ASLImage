@@ -42,7 +42,7 @@ def find_words_asl(word, synsets):
     if found_ss or found_sa:
         return video_urls, synonyms
     else:
-        return []
+        return [], []
 
 def find_synonyms(word, syn):
     synonyms = []
