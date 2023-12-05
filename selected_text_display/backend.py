@@ -31,16 +31,16 @@ def english_root_and_synonyms(synsets, word):
       _, pos, _ = synsets[word].name().split('.')
       root = wnl.lemmatize(word, pos=pos)
       lstsyn = find_synonyms(word, synsets)
-      asl_synonyms = result.loc[result['word'] == root]['synonyms'].to_list()
+      asl_synonyms = ''
       return root, lstsyn, asl_synonyms
 
 def find_words_asl(word, synsets):
     word = word.lower()
-    found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
+    found_ss, video_urls, synonyms = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
     if not found_ss:
         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{word}", word)
     if found_ss or found_sa:
-        return video_urls
+        return video_urls, synonyms
     else:
         return []
 
@@ -55,29 +55,30 @@ def find_synonyms(word, syn):
     return synonyms
 
 def find_word_ss(website, word, synsets):
-    url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/signing_savvy_words.csv'
+    url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/full_list.csv'
     result = pd.read_csv(url, index_col=0)
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
     header_tag = soup.find('div', class_ = 'signing_header')
     if header_tag == None:
-        video_urls = get_multiple_meanings(soup, synsets, result, word)
+        video_urls, synonyms = get_multiple_meanings(soup, synsets, result, word)
         if video_urls == []:
             found = False
         else:
             found = True
-        return found, video_urls
+        return found, video_urls, synonyms
     lists = header_tag.find_all('li')
     if len(lists) == 2:
         video_urls = []
-        video = get_single_video(website)
+        video, synonyms = get_single_video(website)
         video_urls.append(video)
     elif len(lists) > 2:
-        video_urls = get_multiple_videos(lists, website)
-    return True, video_urls
+        video_urls, synonyms = get_multiple_videos(lists, website)
+    return True, video_urls, synonyms
   
 def get_multiple_meanings(soup, synsets, result, word):
     video_urls = []
+    synonyms = []
     results = soup.find('div', class_ = 'search_results')
     if results == None:
         return []
@@ -88,6 +89,7 @@ def get_multiple_meanings(soup, synsets, result, word):
         english = synsets[word]
         
         asl = result.loc[result['word'] == word]
+        synonyms = result.loc[result['word'] == root]['synonyms'].to_list()
         asl_translation = match_synset(asl, english)
         video_urls = asl_translation
         
@@ -97,13 +99,15 @@ def get_multiple_meanings(soup, synsets, result, word):
             
     if asl_translation == None:
         video_urls = []
+        synonyms = []
         prefix = 'https://www.signingsavvy.com/'
         for meaning in meanings:
             suffix = meaning.find('a')['href']
             website = prefix + suffix
             if len(video_urls) < 2:
+                synonyms.append(result.loc[result['word'] == root]['synonyms'].to_list())
                 video_urls.append(get_single_video(website))
-    return video_urls
+    return video_urls, synonyms
 
 def match_synset(asl, english):
     asl_translation = None
