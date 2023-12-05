@@ -22,8 +22,8 @@ def get_lesk(sentence, words):
     return synsets
     
 def get_asl(word, synsets):
-  video_links = find_words_asl(word, synsets)
-  return video_links
+  video_links, synonyms = find_words_asl(word, synsets)
+  return video_links, synonyms
 
 def english_root_and_synonyms(synsets, word):
       url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/full_list.csv'
