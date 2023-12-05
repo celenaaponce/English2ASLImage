@@ -122,7 +122,7 @@ def main():
                   st.write(word)
                   lstsyn = backend.find_synonyms(word, synsets)
                   for syn in lstsyn:
-                      video_links = backend.find_words_asl(syn)
+                      video_links, synonyms = backend.find_words_asl(syn)
                       if video_links != []:
                           st.write(syn)
                           break
