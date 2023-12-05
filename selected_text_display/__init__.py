@@ -91,7 +91,7 @@ def main():
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
           for word in st.session_state.words:
-              video_links, synonyms = backend.get_asl(word, synsets)
+              video_links = backend.get_asl(word, synsets)
               if video_links != []:
                   with container_dict[word]:
                       with left_column_dict[word]:
@@ -122,7 +122,7 @@ def main():
                   st.write(word)
                   lstsyn = backend.find_synonyms(word, synsets)
                   for syn in lstsyn:
-                      video_links, synonyms = backend.find_words_asl(syn)
+                      video_links = backend.find_words_asl(syn)
                       if video_links != []:
                           st.write(syn)
                           break
