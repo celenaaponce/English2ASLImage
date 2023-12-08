@@ -55,7 +55,7 @@ def find_synonyms(word, syn):
     return synonyms
 
 def find_word_ss(website, word, synsets):
-    url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/signing_savvy_words.csv'
+    url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/full_list.csv' 
     result = pd.read_csv(url, index_col=0)
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -71,6 +71,8 @@ def find_word_ss(website, word, synsets):
     if len(lists) == 2:
         video_urls = []
         video = get_single_video(website)
+        csv_value = [i for i in result['link'].to_list() if website.split('/')[-1] in i]
+        asl_synonyms = result.loc[result['link'] == csv_value[0]]['synonyms'].to_list()
         video_urls.append(video)
     elif len(lists) > 2:
         video_urls = get_multiple_videos(lists, website)
@@ -97,11 +99,14 @@ def get_multiple_meanings(soup, synsets, result, word):
             
     if asl_translation == None:
         video_urls = []
+        asl_synonyms = []
         prefix = 'https://www.signingsavvy.com/'
         for meaning in meanings:
             suffix = meaning.find('a')['href']
             website = prefix + suffix
             if len(video_urls) < 2:
+                if result.loc[result['link'] == website.split('/',3)[-1]]['synonyms'].to_list() != ['[]']:
+                    asl_synonyms.append(result.loc[result['link'] == website.split('/',3)[-1]]['synonyms'].to_list())
                 video_urls.append(get_single_video(website))
     return video_urls
 
@@ -114,7 +119,22 @@ def match_synset(asl, english):
                 asl_translation = row['link'].to_list()
                 website = prefix + asl_translation
                 asl_translation = get_single_video(website)
+    if asl_translation == None:
+        asl_translation = match_pos(asl, english)
     return asl_translation
+
+def match_pos(asl, english):
+    asl_translation = None
+    asl_list = []
+    _, pos, _ = english.name().split('.')
+    prefix = 'https://www.signingsavvy.com/'
+    for index, row in asl.iterrows():
+        if type(row['synset']) != float:
+            if row['synset'].split('.')[1] == pos:
+                asl_translation = row['link']
+                website = prefix + asl_translation
+                asl_list.append(get_single_video(website))
+    return asl_list
   
 def match_synonyms(asl, english):
     asl_translation = None
