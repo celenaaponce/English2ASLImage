@@ -37,7 +37,6 @@ def main():
         screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
         if screen_width != None:
           st.session_state.screen_size = True
-          continue
     m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
   color: #ffffff; /* Text color */
