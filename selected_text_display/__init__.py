@@ -34,7 +34,7 @@ if "txt" not in st.session_state:
 def main():
     
     while st.session_state.screen_size == None:
-        st.write('Please wait...')
+      with st.spinner('Extracting Text from given Image'):
         screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
         st.session_state.screen_size = screen_width
         
