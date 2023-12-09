@@ -92,7 +92,6 @@ def main():
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
           for word in st.session_state.words:
               root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
-              st.write(root)
               video_links = backend.get_asl(word, synsets, root)
               if video_links != []:
                   with container_dict[word]:
@@ -103,7 +102,6 @@ def main():
                               st.video(video)
                       with right_column_dict[word]:
                           try:
-                            root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
                             if root != '':
                               st.divider()
                               st.subheader("Root: ")
