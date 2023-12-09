@@ -36,8 +36,8 @@ def main():
     screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
         
     m = st.markdown("""<style> div.stButton > button:first-child {
-  background-color: #4e83e0; /* Background color */
-  color: #ffffff; /* Text color */
+  background-color: #5BA300; /* Background color */
+  color: #000000; /* Text color */
   padding: 10px 20px; /* Padding */
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
