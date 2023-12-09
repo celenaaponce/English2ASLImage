@@ -33,9 +33,7 @@ if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
     
-    while st.session_state.screen_size == None:
-        screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-        st.session_state.screen_size = screen_width
+    screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
         
     m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
@@ -51,96 +49,97 @@ def main():
     height:2.em;width:50%;
 }
 </style>""", unsafe_allow_html=True)
-    if screen_width < 400:
-      on_phone()
-    else:
-      col1, col2 = st.columns([2,1])
-      with col1:
-          st.title("English to ASL")
-          st.subheader("Put in your paragraph here: ")
-          on = st.toggle('Choose here to use picture')
-          if not on:
-              st.session_state.txt = st.text_area("Input")
-          else:
-              image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg','JPG'])
-      
-              if image_file is not None:
-                  img = Image.open(image_file)
-                  img = np.array(img)
-                  
-                  st.subheader('Image you Uploaded...')
-                  st.image(image_file,width=450)
-                  if st.session_state.img == False:
-                      with st.spinner('Extracting Text from given Image'):
-                          eng_reader = easyocr.Reader(['en'])
-                          detected_text = eng_reader.readtext(img)
-                      st.session_state.txt = display_text(detected_text)
-                      st.session_state.img = True
-      with col2:
-          st.image('./video-recording_V1.gif')
-      with col1:
-          st.divider()
-          st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
-      with col2:
-          st.image('./video-recording_V1.gif')
-      with col1:
-          selected_text = selected_text_display(st.session_state.txt)
-          
-          if selected_text not in st.session_state.words and selected_text not in [None, '', ' ']:
-              st.session_state.words.append(selected_text)
-      container_dict = {}
-      left_column_dict = {}
-      right_column_dict = {}
-      if st.button("Translate to ASL"):
-          synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
-          for word in st.session_state.words:
-              container_dict[word] = st.container()
-              left_column_dict[word], right_column_dict[word] = st.columns([2,1])
-          for word in st.session_state.words:
-              root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
-              video_links = backend.get_asl(word, synsets, root)
-              if video_links != []:
-                  with container_dict[word]:
-                      with left_column_dict[word]:
-                          st.divider()
-                          st.subheader(word)
-                          for video in video_links:
-                              st.video(video)
-                      with right_column_dict[word]:
-                          try:
-                            if root != '':
-                              st.divider()
-                              st.subheader("Root: ")
-                              st.write(root)
-                            if lstsyn != []:
-                              st.subheader("This English word can also mean: ")
-                              for syn in lstsyn:
-                                  st.write(syn)
-                            if asl_synonyms != []:
-                              st.subheader("This ASL sign can also mean: ")
-                              for syn in asl_synonyms:
-                                syn = syn.split(',')
-                                for item in syn:
-                                    st.write(item.strip('[]'))
-                          except Exception as e:
-                            st.write("")
-              else:
-                  st.write(word)
-                  lstsyn = backend.find_synonyms(word, synsets)
-                  for syn in lstsyn:
-                      video_links = backend.find_words_asl(word, syn)
-                      if video_links != []:
-                          st.write(syn)
-                          break
-                  for video in video_links:
-                      st.video(video)
-  
-  
-      if st.button("Restart"):
-          st.session_state.words = []
-          st.session_state.img = False
-          st.session_state.txt = ""
-          streamlit_js_eval(js_expressions="parent.window.location.reload()")
+    if screen_width != None:
+      if screen_width < 400:
+        on_phone()
+      else:
+        col1, col2 = st.columns([2,1])
+        with col1:
+            st.title("English to ASL")
+            st.subheader("Put in your paragraph here: ")
+            on = st.toggle('Choose here to use picture')
+            if not on:
+                st.session_state.txt = st.text_area("Input")
+            else:
+                image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg','JPG'])
+        
+                if image_file is not None:
+                    img = Image.open(image_file)
+                    img = np.array(img)
+                    
+                    st.subheader('Image you Uploaded...')
+                    st.image(image_file,width=450)
+                    if st.session_state.img == False:
+                        with st.spinner('Extracting Text from given Image'):
+                            eng_reader = easyocr.Reader(['en'])
+                            detected_text = eng_reader.readtext(img)
+                        st.session_state.txt = display_text(detected_text)
+                        st.session_state.img = True
+        with col2:
+            st.image('./video-recording_V1.gif')
+        with col1:
+            st.divider()
+            st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
+        with col2:
+            st.image('./video-recording_V1.gif')
+        with col1:
+            selected_text = selected_text_display(st.session_state.txt)
+            
+            if selected_text not in st.session_state.words and selected_text not in [None, '', ' ']:
+                st.session_state.words.append(selected_text)
+        container_dict = {}
+        left_column_dict = {}
+        right_column_dict = {}
+        if st.button("Translate to ASL"):
+            synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
+            for word in st.session_state.words:
+                container_dict[word] = st.container()
+                left_column_dict[word], right_column_dict[word] = st.columns([2,1])
+            for word in st.session_state.words:
+                root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
+                video_links = backend.get_asl(word, synsets, root)
+                if video_links != []:
+                    with container_dict[word]:
+                        with left_column_dict[word]:
+                            st.divider()
+                            st.subheader(word)
+                            for video in video_links:
+                                st.video(video)
+                        with right_column_dict[word]:
+                            try:
+                              if root != '':
+                                st.divider()
+                                st.subheader("Root: ")
+                                st.write(root)
+                              if lstsyn != []:
+                                st.subheader("This English word can also mean: ")
+                                for syn in lstsyn:
+                                    st.write(syn)
+                              if asl_synonyms != []:
+                                st.subheader("This ASL sign can also mean: ")
+                                for syn in asl_synonyms:
+                                  syn = syn.split(',')
+                                  for item in syn:
+                                      st.write(item.strip('[]'))
+                            except Exception as e:
+                              st.write("")
+                else:
+                    st.write(word)
+                    lstsyn = backend.find_synonyms(word, synsets)
+                    for syn in lstsyn:
+                        video_links = backend.find_words_asl(word, syn)
+                        if video_links != []:
+                            st.write(syn)
+                            break
+                    for video in video_links:
+                        st.video(video)
+    
+    
+        if st.button("Restart"):
+            st.session_state.words = []
+            st.session_state.img = False
+            st.session_state.txt = ""
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
 def on_phone():
           st.title("English to ASL")
