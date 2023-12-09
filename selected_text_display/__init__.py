@@ -64,7 +64,7 @@ def main():
                           st.session_state.img = True
           with col2:
               st.image('./video-recording_V1.gif')
-        with st.container()
+        with st.container():
           with col1:
               st.divider()
               st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
