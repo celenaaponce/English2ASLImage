@@ -23,7 +23,7 @@ def selected_text_display(txt, key=None):
 if 'img' not in st.session_state:
     st.session_state.img = False
 
-if 'screen_size' not in st.session_state;
+if 'screen_size' not in st.session_state:
     st.session_state.screen_size = False
 
 if 'words' not in st.session_state:
