@@ -197,6 +197,7 @@ def ChangeButtonColour(widget_label, font_color, background_color='transparent')
                     elements[i].style.color ='{font_color}';
                     elements[i].style.background = '{background_color}';
                     elements[i].style.width = '33%';
+                    elements[i].style.padding = '15px';
                 }}
             }}
         </script>
