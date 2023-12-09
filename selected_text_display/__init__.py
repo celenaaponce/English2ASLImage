@@ -63,7 +63,7 @@ def main():
                           st.session_state.txt = display_text(detected_text)
                           st.session_state.img = True
           with col2:
-              st.image('./video-recording_V1.gif')
+              st.image('./video-recording_V1-min.gif')
         with st.container():
           with col1:
               st.divider()
