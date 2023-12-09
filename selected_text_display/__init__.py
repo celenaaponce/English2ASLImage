@@ -40,7 +40,7 @@ def main():
         on_phone()
       else:
         col1, col2 = st.columns([2,1])
-        with st.container()
+        with st.container():
           with col1:
               st.title("English to ASL")
               st.subheader("Put in your paragraph here: ")
