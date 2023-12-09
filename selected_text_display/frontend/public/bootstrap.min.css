@@ -215,8 +215,8 @@ label {
   color: #000}
 
 button {
-  color: rgb(0, 0, 0);
-  background: rgb(91, 163, 0);
+  color: #FFFFFF;
+  background: #89CE00;
   padding: 15px 75px;
   border-radius: 0.5rem;
   border: 1px solid rgba(49, 51, 63, 0.2);
