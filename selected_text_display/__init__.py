@@ -45,6 +45,8 @@ def main():
     height:2.em;width:50%;
 }
 </style>""", unsafe_allow_html=True)
+    while screen_width == None:
+      st.spinner('Please Wait...')
     if screen_width < 400:
       on_phone()
     else:
