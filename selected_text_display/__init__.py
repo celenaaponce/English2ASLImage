@@ -34,21 +34,7 @@ if "txt" not in st.session_state:
 def main():
     
     screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-        
-    m = st.markdown("""<style> div.stButton > button:first-child {
-  background-color: #5BA300; /* Background color */
-  color: #000000; /* Text color */
-  padding: 10px 20px; /* Padding */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Cursor on hover */
-  font-weight: bold; /* Bold text */
-  font-size: 20px; /* Font size */
-  margin-top: 10px;
-  margin-bottom: 10px;
-    height:2.em;width:50%;
-}
-</style>""", unsafe_allow_html=True)
+
     if screen_width != None:
       if screen_width < 400:
         on_phone()
@@ -90,7 +76,9 @@ def main():
         container_dict = {}
         left_column_dict = {}
         right_column_dict = {}
-        if st.button("Translate to ASL"):
+        translate = st.button("Translate to ASL")
+        ChangeButtonColour("Translate to ASL", "#000000", "#5BA300")
+        if translate:
             synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
             for word in st.session_state.words:
                 container_dict[word] = st.container()
@@ -134,8 +122,9 @@ def main():
                     for video in video_links:
                         st.video(video)
     
-    
-        if st.button("Restart"):
+        restart = st.button("Restart")
+        ChangeButtonColour("Restart", "#000000", "#E6308A")
+        if restart:
             st.session_state.words = []
             st.session_state.img = False
             st.session_state.txt = ""
@@ -199,6 +188,19 @@ def on_phone():
               st.session_state.txt = ""
               streamlit_js_eval(js_expressions="parent.window.location.reload()")
           
-
+def ChangeButtonColour(widget_label, font_color, background_color='transparent'):
+    htmlstr = f"""
+        <script>
+            var elements = window.parent.document.querySelectorAll('button');
+            for (var i = 0; i < elements.length; ++i) {{ 
+                if (elements[i].innerText == '{widget_label}') {{ 
+                    elements[i].style.color ='{font_color}';
+                    elements[i].style.background = '{background_color}'
+                }}
+            }}
+        </script>
+        """
+    components.html(f"{htmlstr}", height=0, width=0)
+  
 if __name__ == "__main__":
     main()
