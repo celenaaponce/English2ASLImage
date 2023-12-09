@@ -23,15 +23,21 @@ def selected_text_display(txt, key=None):
 if 'img' not in st.session_state:
     st.session_state.img = False
 
+if 'screen_size' not in st.session_state;
+    st.session_state.screen_size = False
+
 if 'words' not in st.session_state:
     st.session_state['words'] = []    
 
 if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
-    with st.spinner('Please Wait...'):
-      screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-    # st.write(f"Screen width is {streamlit_js_eval(js_expressions='screen.width', key = 'SCR')}")
+    if st.session_state.screen_size == False:
+      with st.spinner('Please Wait...'):
+        screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
+        if screen_width != None:
+          st.session_state.screen_size = True
+          break
     m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
   color: #ffffff; /* Text color */
