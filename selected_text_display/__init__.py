@@ -70,7 +70,7 @@ def main():
               st.subheader("Choose your words to translate here by highlighting the word and clicking 'Select Text'")
           with col2:
               st.divider()
-              st.image('./video-recording_V1.gif')
+              st.image('./video-recording_V2-min.gif')
         with col1:
             selected_text = selected_text_display(st.session_state.txt)
             
