@@ -215,9 +215,9 @@ label {
   color: #000}
 
 button {
-  background-color: #4e83e0; /* Background color */
-  color: #ffffff; /* Text color */
-  padding: 10px 20px; /* Padding */
+  color: rgb(0, 0, 0);
+  background: rgb(91, 163, 0);
+  padding: 15px 75px;
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
   cursor: pointer; /* Cursor on hover */
