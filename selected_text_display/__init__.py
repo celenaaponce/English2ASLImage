@@ -34,7 +34,7 @@ if "txt" not in st.session_state:
 def main():
     if st.session_state.screen_size == False:
       with st.spinner('Please Wait...'):
-        screen_width = streamlit_js_eval(js_expressions='screen.width', want_output = True, key = 'SCR')
+        screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
         if screen_width != None:
           st.session_state.screen_size = True
     m = st.markdown("""<style> div.stButton > button:first-child {
