@@ -34,11 +34,20 @@ def english_root_and_synonyms(synsets, word):
       asl_synonyms = result.loc[result['word'] == root]['synonyms'].to_list()
       return root, lstsyn, asl_synonyms
 
-def find_words_asl(word, synsets):
+def find_words_asl(word, synsets, root):
     word = word.lower()
+    name, _, _ = synsets[word].name().split('.')
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
+    if not found_ss and word != root:
+        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", root, synsets)
+    elif not found_ss:
+        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{name}", name, synsets)       
     if not found_ss:
         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{word}", word)
+    if not found_sa and word != root:
+        found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{root}", root)
+    elif not found_sa:
+         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{name}", name)       
     if found_ss or found_sa:
         return video_urls
     else:
