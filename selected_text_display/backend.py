@@ -21,8 +21,8 @@ def get_lesk(sentence, words):
               print('duplicate word diff meaning')
     return synsets
     
-def get_asl(word, synsets):
-  video_links = find_words_asl(word, synsets)
+def get_asl(word, synsets, root):
+  video_links = find_words_asl(word, synsets, root)
   return video_links
 
 def english_root_and_synonyms(synsets, word):
