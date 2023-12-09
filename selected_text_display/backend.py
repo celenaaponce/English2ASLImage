@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import string
 from nltk.stem import WordNetLemmatizer
 import streamlit as st
+import os
 wnl = WordNetLemmatizer()
 
 def get_lesk(sentence, words):
@@ -38,7 +39,7 @@ def find_words_asl(word, synsets, root):
     word = word.lower()
     name, _, _ = synsets[word].name().split('.')
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
-    print(root)
+    os.write(1,root)
     if not found_ss and word != root:
         found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", root, synsets)
     elif not found_ss:
