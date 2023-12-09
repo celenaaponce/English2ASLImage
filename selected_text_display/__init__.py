@@ -91,7 +91,8 @@ def main():
               container_dict[word] = st.container()
               left_column_dict[word], right_column_dict[word] = st.columns([2,1])
           for word in st.session_state.words:
-              video_links = backend.get_asl(word, synsets)
+              root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
+              video_links = backend.get_asl(word, synsets, root)
               if video_links != []:
                   with container_dict[word]:
                       with left_column_dict[word]:
