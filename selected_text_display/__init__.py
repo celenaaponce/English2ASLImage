@@ -24,7 +24,7 @@ if 'img' not in st.session_state:
     st.session_state.img = False
 
 if 'screen_size' not in st.session_state:
-    st.session_state.screen_size = False
+    st.session_state.screen_size = None
 
 if 'words' not in st.session_state:
     st.session_state['words'] = []    
@@ -32,11 +32,12 @@ if 'words' not in st.session_state:
 if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
-    if st.session_state.screen_size == False:
-      with st.spinner('Please Wait...'):
+    
+    while st.session_state.screen_size == None:
+        st.write('Please wait...')
         screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-        if screen_width != None:
-          st.session_state.screen_size = True
+        st.session_state.screen_size = screen_width
+        
     m = st.markdown("""<style> div.stButton > button:first-child {
   background-color: #4e83e0; /* Background color */
   color: #ffffff; /* Text color */
