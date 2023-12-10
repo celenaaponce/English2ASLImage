@@ -80,7 +80,7 @@ def main():
         left_column_dict = {}
         right_column_dict = {}
         translate = st.button("Translate to ASL")
-        ChangeButtonColour("Translate to ASL", "#FFFFFF", "#0073E6")
+        ChangeButtonColour("Translate to ASL", "#FFFFFF", "#B3C7F7")
         if translate:
             synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
             for word in st.session_state.words:
@@ -126,7 +126,7 @@ def main():
                         st.video(video)
     
         restart = st.button("Restart")
-        ChangeButtonColour("Restart", "#000000", "#E6308A")
+        ChangeButtonColour("Restart", "#FFFFFF", "#F194B8")
         if restart:
             st.session_state.words = []
             st.session_state.img = False
