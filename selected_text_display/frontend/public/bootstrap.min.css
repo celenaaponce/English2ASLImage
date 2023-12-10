@@ -2470,9 +2470,9 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 .btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  color: #000;
+  background-color: #B9E192;
+  border-color: #B9E192;
 }
 .btn-primary:hover {
   color: #fff;
