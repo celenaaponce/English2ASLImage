@@ -40,9 +40,9 @@ def english_root_and_synonyms(synsets, word):
 
 def find_words_asl(word, synsets, root):
     word = word.lower()
-    try:
+    if synsets[word] != None:
         name, _, _ = synsets[word].name().split('.')
-    except:
+    else:
         name = word
     found_ss = False
     found_sa = False
