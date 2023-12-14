@@ -16,6 +16,7 @@ def get_lesk(sentence, words):
     for word in words:
       word = word.lower()
       sentence = contractions.fix(sentence)
+      st.write(sentence)
       if word not in synsets.keys():
           synsets[word] = lesk.simple_lesk(sentence, word)
       else:
