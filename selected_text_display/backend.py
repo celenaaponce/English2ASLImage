@@ -48,10 +48,9 @@ def find_words_asl(word, synsets, root):
     word = word.lower()
     st.write(word)
     st.write(synsets[word])
-    if synsets[word] != None:
-        name, _, _ = synsets[word].name().split('.')
-    else:
-        name = word
+
+    name, _, _ = synsets[word].name().split('.')
+
     found_ss = False
     found_sa = False
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
