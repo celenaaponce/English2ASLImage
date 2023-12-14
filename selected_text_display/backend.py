@@ -17,11 +17,11 @@ def get_lesk(sentence, words):
     for i in range(len(words)):
       words[i] = words[i].lower()
       if words[i] not in synsets.keys():
-          synsets[words[i]] = lesk.simple_lesk(sentence, words[i])
-          st.write(synsets[words[i]], words[i])
-          if synsets[words[i]] == None and "'" in words[i]:
+          poss_synset = lesk.simple_lesk(sentence, words[i])
+          if poss_synset == None and "'" in words[i]:
               original[i] = words[i].split("'")[0]
-              synsets[original[i]] = lesk.simple_lesk(sentence, original[i])
+              poss_synset = lesk.simple_lesk(sentence, original[i])
+          synset[words[i]] = poss_synset
       else:
           test_word = lesk.simple_lesk(sentence, word)
           if test_word != synsets[word]:
