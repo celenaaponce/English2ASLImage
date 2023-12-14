@@ -18,7 +18,6 @@ def get_lesk(sentence, words):
       words[i] = words[i].lower()
       if words[i] not in synsets.keys():
           synsets[words[i]] = lesk.simple_lesk(sentence, words[i])
-          st.write(synsets[words[i]])
           if synsets[words[i]] == None and "'" in words[i]:
               original[i] = words[i].split("'")[0]
               synsets[words[i]] = lesk.simple_lesk(sentence, original[i])
@@ -46,6 +45,8 @@ def english_root_and_synonyms(synsets, word):
 
 def find_words_asl(word, synsets, root):
     word = word.lower()
+    st.write(word)
+    st.write(synsets[word])
     if synsets[word] != None:
         name, _, _ = synsets[word].name().split('.')
     else:
