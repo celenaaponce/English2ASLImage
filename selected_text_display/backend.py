@@ -13,20 +13,20 @@ wnl = WordNetLemmatizer()
 
 def get_lesk(sentence, words):
     synsets = {}
-    for word in words:
-      word = word.lower()
-      if word not in synsets.keys():
-          synsets[word] = lesk.simple_lesk(sentence, word)
-          st.write(synsets[word])
-          if synsets[word] == None and "'" in word:
-              word = word.split("'")[0]
-              st.write(word)
-              synsets[word] = lesk.simple_lesk(sentence, word)
+    original = words
+    for i in range(len(words)):
+      words[i] = words[i].lower()
+      if words[i] not in synsets.keys():
+          synsets[words[i]] = lesk.simple_lesk(sentence, words[i])
+          st.write(synsets[words[i]])
+          if synsets[words[i]] == None and "'" in words[i]:
+              original[i] = word.split("'")[0]
+              synsets[words[i]] = lesk.simple_lesk(sentence, original[i])
       else:
           test_word = lesk.simple_lesk(sentence, word)
           if test_word != synsets[word]:
               print('duplicate word diff meaning')
-    return synsets, words
+    return synsets, original
     
 def get_asl(word, synsets, root):
   video_links = find_words_asl(word, synsets, root)
