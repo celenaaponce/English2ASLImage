@@ -46,9 +46,6 @@ def english_root_and_synonyms(synsets, word):
 
 def find_words_asl(word, synsets, root):
     word = word.lower()
-    st.write(word)
-    st.write(synsets[word])
-
     name, _, _ = synsets[word].name().split('.')
 
     found_ss = False
