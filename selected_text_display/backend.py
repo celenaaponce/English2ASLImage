@@ -26,7 +26,7 @@ def get_lesk(sentence, words):
           test_word = lesk.simple_lesk(sentence, word)
           if test_word != synsets[word]:
               print('duplicate word diff meaning')
-    return synsets
+    return synsets, words
     
 def get_asl(word, synsets, root):
   video_links = find_words_asl(word, synsets, root)
