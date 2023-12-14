@@ -20,7 +20,7 @@ def get_lesk(sentence, words):
       if words[i] not in synsets.keys():
           poss_synset = lesk.simple_lesk(sentence, words[i])
           st.write(poss_synset)
-          if poss_synset == None and "'" in words[i]:
+          if poss_synset is None and "'" in words[i]:
               original[i] = words[i].split("'")[0]
               poss_synset = lesk.simple_lesk(sentence, original[i])
           synsets[words[i]] = poss_synset
