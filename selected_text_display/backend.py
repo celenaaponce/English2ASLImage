@@ -16,8 +16,10 @@ def get_lesk(sentence, words):
     original = words
     for i in range(len(words)):
       words[i] = words[i].lower()
+      st.write(words[i])
       if words[i] not in synsets.keys():
           poss_synset = lesk.simple_lesk(sentence, words[i])
+          st.write(poss_synset)
           if poss_synset == None and "'" in words[i]:
               original[i] = words[i].split("'")[0]
               poss_synset = lesk.simple_lesk(sentence, original[i])
