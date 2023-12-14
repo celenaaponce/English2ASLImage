@@ -215,7 +215,7 @@ label {
   color: #000}
 
 button {
-  background-color: #FFFFFF; /* Background color */
+  background-color: #B9E192; /* Background color */
   color: #ffffff; /* Text color */
   padding: 10px 20px; /* Padding */
   border: none; /* No border */
@@ -232,7 +232,7 @@ button:focus {
   outline: 5px auto -webkit-focus-ring-color;
 }
 button:hover{
-  background-color: #FFFFFF;
+  background-color: #B9E192;
 }
 button,
 input,
