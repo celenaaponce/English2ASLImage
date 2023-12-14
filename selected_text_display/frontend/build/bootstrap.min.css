@@ -216,7 +216,7 @@ label {
 
 button {
   background-color: #B9E192; /* Background color */
-  color: #ffffff; /* Text color */
+  color: #000000; /* Text color */
   padding: 10px 20px; /* Padding */
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
