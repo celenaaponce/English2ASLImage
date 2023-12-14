@@ -20,7 +20,7 @@ def get_lesk(sentence, words):
           synsets[words[i]] = lesk.simple_lesk(sentence, words[i])
           st.write(synsets[words[i]])
           if synsets[words[i]] == None and "'" in words[i]:
-              original[i] = word.split("'")[0]
+              original[i] = words[i].split("'")[0]
               synsets[words[i]] = lesk.simple_lesk(sentence, original[i])
       else:
           test_word = lesk.simple_lesk(sentence, word)
