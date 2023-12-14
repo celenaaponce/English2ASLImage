@@ -8,12 +8,14 @@ import string
 from nltk.stem import WordNetLemmatizer
 import streamlit as st
 import os
+import contractions
 wnl = WordNetLemmatizer()
 
 def get_lesk(sentence, words):
     synsets = {}
     for word in words:
       word = word.lower()
+      sentence = contractions.fix(sentence)
       if word not in synsets.keys():
           synsets[word] = lesk.simple_lesk(sentence, word)
       else:
