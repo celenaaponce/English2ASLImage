@@ -21,7 +21,7 @@ def get_lesk(sentence, words):
           if poss_synset == None and "'" in words[i]:
               original[i] = words[i].split("'")[0]
               poss_synset = lesk.simple_lesk(sentence, original[i])
-          synset[words[i]] = poss_synset
+          synsets[words[i]] = poss_synset
       else:
           test_word = lesk.simple_lesk(sentence, word)
           if test_word != synsets[word]:
