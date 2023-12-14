@@ -157,7 +157,7 @@ a {
   background-color: transparent;
 }
 a:hover {
-  color: #0056b3;
+  color: #FFFFFF;
   text-decoration: underline;
 }
 a:not([href]) {
@@ -232,7 +232,7 @@ button:focus {
   outline: 5px auto -webkit-focus-ring-color;
 }
 button:hover{
-  background-color: #3566c6;
+  background-color: #FFFFFF;
 }
 button,
 input,
