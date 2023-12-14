@@ -82,7 +82,9 @@ def main():
         translate = st.button("Translate to ASL")
         ChangeButtonColour("Translate to ASL", "#000000", "#B3C7F7")
         if translate:
-            synsets = backend.get_lesk(st.session_state.txt, st.session_state.words)
+            synsets, words = backend.get_lesk(st.session_state.txt, st.session_state.words)
+            if words != st.session_state.words:
+                st.session_state.words = words
             for word in st.session_state.words:
                 container_dict[word] = st.container()
                 left_column_dict[word], right_column_dict[word] = st.columns([2,1])
