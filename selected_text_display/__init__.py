@@ -121,7 +121,7 @@ def main():
                     root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
                     st.write(root, lstsyn, asl_synonyms)
                     for syn in lstsyn:
-                        video_links = backend.get_asl(word, syn, root)
+                        video_links = backend.get_asl(syn, synsets, root)
                         if video_links != []:
                             st.write(syn)
                             break
