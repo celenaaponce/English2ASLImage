@@ -119,6 +119,7 @@ def main():
                 else:
                     st.write(word)
                     root, lstsyn, asl_synonyms = backend.english_root_and_synonyms(synsets, word)
+                    st.write(root, lstsyn, asl_synonyms)
                     for syn in lstsyn:
                         video_links = backend.get_asl(word, syn, root)
                         if video_links != []:
