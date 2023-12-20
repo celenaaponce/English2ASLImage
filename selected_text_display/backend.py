@@ -47,8 +47,10 @@ def english_root_and_synonyms(synsets, word):
 
 def find_words_asl(word, synsets, root):
     word = word.lower()
-    name, _, _ = synsets[word].name().split('.')
-
+    if synsets[word] is not None:
+        name, _, _ = synsets[word].name().split('.')
+    else:
+        name = ''
     found_ss = False
     found_sa = False
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
