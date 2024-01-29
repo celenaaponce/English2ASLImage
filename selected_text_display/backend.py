@@ -55,7 +55,7 @@ def find_words_asl(word, synsets, root):
     found_sa = False
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
     if not found_ss and word != root:
-        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", root, synsets)
+        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", name, synsets, root)
     elif not found_ss:
         found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{name}", name, synsets)       
     if not found_ss:
@@ -79,14 +79,14 @@ def find_synonyms(word, syn):
                 synonyms.append(lemma_name)
     return synonyms
 
-def find_word_ss(website, word, synsets):
+def find_word_ss(website, word, synsets, root=None):
     url = 'https://raw.githubusercontent.com/celenaaponce/English2ASLImage/main/selected_text_display/full_list.csv' 
     result = pd.read_csv(url, index_col=0)
     r = requests.get(website)
     soup = BeautifulSoup(r.content, 'html.parser')
     header_tag = soup.find('div', class_ = 'signing_header')
     if header_tag == None:
-        video_urls = get_multiple_meanings(soup, synsets, result, word)
+        video_urls = get_multiple_meanings(soup, synsets, result, word, root)
         if video_urls == []:
             found = False
         else:
@@ -103,7 +103,7 @@ def find_word_ss(website, word, synsets):
         video_urls = get_multiple_videos(lists, website)
     return True, video_urls
   
-def get_multiple_meanings(soup, synsets, result, word):
+def get_multiple_meanings(soup, synsets, result, word, root):
     video_urls = []
     results = soup.find('div', class_ = 'search_results')
     if results == None:
@@ -114,7 +114,10 @@ def get_multiple_meanings(soup, synsets, result, word):
     st.write(synsets['account'])
     if synsets[word]:
         english = synsets[word]
-        
+        if root != None:
+            asl = result.loc[result['word'] == root]
+        else:
+            asl = result.loc[result['word'] == word]
         asl = result.loc[result['word'] == word]
         asl_translation = match_synset(asl, english)
         video_urls = asl_translation
