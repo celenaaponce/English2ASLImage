@@ -86,6 +86,7 @@ def find_word_ss(website, word, synsets, root=None):
     soup = BeautifulSoup(r.content, 'html.parser')
     header_tag = soup.find('div', class_ = 'signing_header')
     if header_tag == None:
+        st.write(word)
         video_urls = get_multiple_meanings(soup, synsets, result, word, root)
         if video_urls == []:
             found = False
