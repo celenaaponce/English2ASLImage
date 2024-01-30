@@ -55,9 +55,9 @@ def find_words_asl(word, synsets, root):
     found_sa = False
     found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{word}", word, synsets)
     if not found_ss and word != root:
-        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", name, synsets, root)
+        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{root}", word, synsets, root)
     elif not found_ss:
-        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{name}", name, synsets)       
+        found_ss, video_urls = find_word_ss(f"https://www.signingsavvy.com/search/{name}", word, synsets, name)       
     if not found_ss:
         found_sa, video_urls = find_word(f"https://www.signasl.org/sign/{word}", word)
     if not found_sa and word != root and not found_ss:
