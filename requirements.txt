@@ -12,3 +12,4 @@ wordfreq==3.0.3
 pandas
 contractions
 python-dotenv
+Flask
