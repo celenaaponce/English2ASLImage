@@ -11,17 +11,7 @@ import numpy as np
 import easyocr
 import os
 import backend
-components.html("""<script type='text/javascript' src='https://ircdname.azureedge.net/immersivereadersdk/immersive-reader-sdk.1.5.0.js'></script>
-<div class='immersive-reader-button' onclick='launchImmersiveReader()'></div>""")
-st.markdown("""function launchImmersiveReader() {
-    const content = {
-        title: 'Immersive Reader',
-        chunks: [ {
-            content: 'Hello, world!'
-        } ]
-    };
-    ImmersiveReader.launchAsync(YOUR_TOKEN, YOUR_SUBDOMAIN, content);
-}""",unsafe_allow_html=True)
+
 st.set_page_config(layout="wide")
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.path.join(parent_dir, "frontend/build")
@@ -42,7 +32,17 @@ if 'words' not in st.session_state:
 if "txt" not in st.session_state:
     st.session_state.txt = ""
 def main():
-    
+  components.html("""<script type='text/javascript' src='https://ircdname.azureedge.net/immersivereadersdk/immersive-reader-sdk.1.5.0.js'></script>
+  <div class='immersive-reader-button' onclick='launchImmersiveReader()'></div>""")
+  st.markdown("""function launchImmersiveReader() {
+      const content = {
+          title: 'Immersive Reader',
+          chunks: [ {
+              content: 'Hello, world!'
+          } ]
+      };
+      ImmersiveReader.launchAsync(YOUR_TOKEN, YOUR_SUBDOMAIN, content);
+  }""",unsafe_allow_html=True)    
     screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
 
     if screen_width != None:
