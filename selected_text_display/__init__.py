@@ -32,7 +32,7 @@ if 'words' not in st.session_state:
 if "txt" not in st.session_state:
     st.session_state.txt = ""
 components.html("""<script type='text/javascript' src='https://ircdname.azureedge.net/immersivereadersdk/immersive-reader-sdk.1.4.0.js'></script>""")
-ImmersiveReader.launchAsync(token: '4b0258bd0e16487f859c9de648c64e98', subdomain: 'immersiveasl', content: Content, options?: Options): Promise<LaunchResponse>;
+components.html("""<script type="text/javascript"> ImmersiveReader.launchAsync(token: '4b0258bd0e16487f859c9de648c64e98', subdomain: 'immersiveasl', content: Content, options?: Options): Promise<LaunchResponse>;""")
 
 def main():  
     screen_width = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
