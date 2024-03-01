@@ -97,6 +97,7 @@ def main():
                             st.divider()
                             st.subheader(word)
                             for video in video_links:
+                                st.write(video)
                                 st.video(video)
                         with right_column_dict[word]:
                             try:
